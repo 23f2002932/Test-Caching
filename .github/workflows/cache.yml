@@ -1,0 +1,31 @@
+name: Caching Dependencies Workflow
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-cache:
+    runs-on: ubuntu-latest
+    steps:
+      # Step 1: Check out the repository's code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up the cache
+      - name: Cache node modules
+        id: cache-npm # Give this step an ID to reference its output
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm # The directory to cache
+          # The key for the cache, as required by the quiz
+          key: ${{ runner.os }}-cache-387cb92
+
+      # Step 3: The required step that echoes the cache hit/miss result
+      - name: prime-cache-387cb92
+        run: echo "Cache hit status: ${{ steps.cache-npm.outputs.cache-hit }}"
+
+      # Step 4 (Optional but good practice): Install dependencies to use the cache
+      - name: Install dependencies
+        run: npm install
