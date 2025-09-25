@@ -14,19 +14,16 @@ jobs:
         uses: actions/checkout@v4
 
       # Step 2: Set up the cache
-      - name: Cache node modules
-        id: cache-npm # Give this step an ID to reference its output
+      - name: Cache dependencies
+        id: cache-step # Give this step an ID to reference its output
         uses: actions/cache@v4
         with:
-          path: ~/.npm # The directory to cache
+          # A path to cache. We'll use a dummy path since we aren't installing anything.
+          path: ~/.cache/dummy
           # The key for the cache, as required by the quiz
           key: ${{ runner.os }}-cache-387cb92
 
       # Step 3: The required step that echoes the cache hit/miss result
       - name: prime-cache-387cb92
         run: |
-          echo "Cache hit status: ${{ steps.cache-npm.outputs.cache-hit }}"
-
-      # Step 4 (Optional but good practice): Install dependencies to use the cache
-      - name: Install dependencies
-        run: npm install
+          echo "Cache hit status: ${{ steps.cache-step.outputs.cache-hit }}"
