@@ -24,7 +24,8 @@ jobs:
 
       # Step 3: The required step that echoes the cache hit/miss result
       - name: prime-cache-387cb92
-        run: echo "Cache hit status: ${{ steps.cache-npm.outputs.cache-hit }}"
+        run: |
+          echo "Cache hit status: ${{ steps.cache-npm.outputs.cache-hit }}"
 
       # Step 4 (Optional but good practice): Install dependencies to use the cache
       - name: Install dependencies
