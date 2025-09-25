@@ -1,28 +1,19 @@
-name: Caching Dependencies Workflow
+name: Simple Caching Workflow
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
-  build-and-cache:
+  caching-job:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Check out the repository's code
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Step 2: Set up the cache with the exact key
       - name: Cache dependencies
-        id: cache-step # Give this step an ID to reference its output
+        id: cache-step
         uses: actions/cache@v4
         with:
-          path: ~/.cache/dummy
-          # The key must be an exact match to what the quiz requires
+          path: ./cache-path
           key: cache-387cb92
 
-      # Step 3: The required step that echoes the cache hit/miss result
       - name: prime-cache-387cb92
         run: |
           echo "Cache hit status: ${{ steps.cache-step.outputs.cache-hit }}"
