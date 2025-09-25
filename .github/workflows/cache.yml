@@ -13,15 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up the cache
+      # Step 2: Set up the cache with the exact key
       - name: Cache dependencies
         id: cache-step # Give this step an ID to reference its output
         uses: actions/cache@v4
         with:
-          # A path to cache. We'll use a dummy path since we aren't installing anything.
           path: ~/.cache/dummy
-          # The key for the cache, as required by the quiz
-          key: ${{ runner.os }}-cache-387cb92
+          # The key must be an exact match to what the quiz requires
+          key: cache-387cb92
 
       # Step 3: The required step that echoes the cache hit/miss result
       - name: prime-cache-387cb92
